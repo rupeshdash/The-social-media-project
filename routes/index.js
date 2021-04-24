@@ -6,8 +6,17 @@ const homeController = require('../controllers/home_controller');
 
 console.log("Roter is running");
 
+ //this .home is sccessible because in router folder index.js we have created the module.exports.home , where home at as an object which we can access here
+router.get('/',homeController.home);
 
-router.get('/',homeController.home);  //this .home is sccessible because in router folder index.js we have created the module.exports.home , where home at as an object which we can access here
 
-// router.get('/profile',homeController.profile); --->> Just for demo
+//when the local host server is fired it encounters that that need to come the index of routes and then the routers folder has the access
+//to other urls as if the url be localhost:8000 then the router.get('/',homeController.home); will run and if the url be
+//localhost:8000/user/profile then it first comes to the routers folder than the folder redirect it to router.use('/user',require('./users'));
+router.use('/users',require('./users'));
+
+//for further routes , access from here like this
+//router.uses('/routerName',require('./routerFilename'));
+
+
 module.exports = router;
