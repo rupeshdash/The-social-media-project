@@ -1,6 +1,14 @@
 
     <link rel="stylesheet" href="/css/user_profile.css">
     <h1>
-        you are inside user and the name of the user is <%= user %>
+        you are inside user | profile page
     </h1>
+    <p>
+        <h1>Name is <%=user.name%></h1>
+        <h1>Email is <%= user.email %></h1>
+    </p>
     
+    <a href="/users/end_session">
+        <button type="submit">Sign out</button>
+    </a>
+   
