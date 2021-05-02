@@ -48,7 +48,7 @@ passport.deserializeUser(function (id, done) {
 
 //check fi the author is autheticated
 
-passport.chechAuthentication = function (req, res, next) {
+passport.checkAuthentication = function (req, res, next) {
 
   if(req.isAuthenticated()){
     return next();

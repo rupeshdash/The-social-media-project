@@ -5,7 +5,7 @@ const { route } = require('.');
 
 const usersController = require('../controllers/user_controller');
 
-router.get('/profile',passport.chechAuthentication,usersController.profile);
+router.get('/profile',passport.checkAuthentication,usersController.profile);
 
 router.get('/sign-in',usersController.signIn);
 router.get('/sign-up',usersController.signUp);
@@ -14,7 +14,7 @@ router.post('/create',usersController.create);
 //use passport as a middleware to authenticate
 router.post('/create_session',passport.authenticate(
     'local',
-    {failureRedirect:'users/sign-in'}
+    {failureRedirect:'/users/sign-in'}
 ),usersController.createSession);
 
 router.get('/sign-out',usersController.destroySession);
