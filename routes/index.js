@@ -14,6 +14,7 @@ router.get('/',homeController.home);
 //to other urls as if the url be localhost:8000 then the router.get('/',homeController.home); will run and if the url be
 //localhost:8000/user/profile then it first comes to the routers folder than the folder redirect it to router.use('/user',require('./users'));
 router.use('/users',require('./users'));
+router.use('/posts',require('./posts'));
 
 //for further routes , access from here like this
 //router.uses('/routerName',require('./routerFilename'));
