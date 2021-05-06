@@ -20,9 +20,11 @@
             
             <% for(post of posts){%>
 
-                <p><%= post.content %></p>
-                <p><%= post.user.name %></p>
+               <%-include('_post')-%>
+                    
 
+               
+                
                 <div class="post-comments">
                     <% if(locals.user) {%>
                         <form action="/comments/create" id="comment-post" method="POST">
@@ -36,11 +38,9 @@
                         <ul id="post-comments-<%= post._id %>">
 
                             <% for(comment of post.comments) {%>
-                                <p>
-                                    <%= comment.content%>
-                                    <br>
-                                    <%= comment.user.name %>
-                                </p>
+
+                                <%-include('_comment')-%>
+                                
 
                             <%}%>
                         </ul>
@@ -51,4 +51,16 @@
                 <hr>
             <%}%>
            </div>
+        </section>
+
+        <section id="user-friends">
+            <h2>Friends</h2>
+            <% for(u of all_users){%>
+                <p>
+                    <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+                </p>
+
+            
+            <%}%>
+
         </section>

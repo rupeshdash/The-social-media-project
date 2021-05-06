@@ -1,10 +1,25 @@
 const User = require("../models/user");
 module.exports.profile = function (req, res) {
-  return res.render("user_profile", {
-    title: "User profile",
+  User.findById(req.params.id, function(err,user){
+    return res.render("user_profile", {
     
-  });
+      title: "User profile",
+      profile_user: user
+      
+    });
+  })
+  
 };
+
+module.exports.update = function(req,res){
+  if(req.user.id==req.params.id){
+    User.findByIdAndUpdate(req.params.id,{name: req.body.name , email:req.body.email},function(err,user){
+      return res.redirect('back');
+    })
+  }else{
+      return res.status(401).send('Unauthorised');
+  }
+}
 
 //render the sign in page
 module.exports.signIn = function (req, res) {
@@ -29,7 +44,7 @@ module.exports.signUp = function (req, res) {
 
 //get the sign up date
 module.exports.create = function (req, res) {
-  if (req.body.password == req.body.confirm_password) {
+  if (req.body.password != req.body.confirm_password) {
     return res.redirect("back");
   }
   User.findOne({ email: req.body.email }, function (err, user) {

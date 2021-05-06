@@ -9,7 +9,7 @@
     <ul class="auth">
         <% if (locals.user){ %>
             <li id="username">
-                <a href="/users/profile">
+                <a href="/users/profile/<%= user.id %>">
 
                     <%= user.name %>
                 </a>
