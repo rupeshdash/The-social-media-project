@@ -1,30 +1,34 @@
 const User = require("../models/user");
 module.exports.profile = function (req, res) {
-  User.findById(req.params.id, function(err,user){
+  User.findById(req.params.id, function (err, user) {
     return res.render("user_profile", {
-    
       title: "User profile",
-      profile_user: user
-      
+      profile_user: user,
     });
-  })
-  
+  });
 };
 
-module.exports.update = function(req,res){
-  if(req.user.id==req.params.id){
-    User.findByIdAndUpdate(req.params.id,{name: req.body.name , email:req.body.email},function(err,user){
-      return res.redirect('back');
-    })
-  }else{
-      return res.status(401).send('Unauthorised');
+module.exports.update = async function (req, res) {
+  try {
+    if (req.user.id == req.params.id) {
+      let user = await User.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        email: req.body.email,
+      });
+      return res.redirect("back");
+    } else {
+      return res.status(401).send("Unauthorised");
+    }
+  } catch (err) {
+    console.log("Error is updating the profile", err);
+    return;
   }
-}
+};
 
 //render the sign in page
 module.exports.signIn = function (req, res) {
-  if(req.isAuthenticated()){
-    return res.redirect('/users/profile');
+  if (req.isAuthenticated()) {
+    return res.redirect("/users/profile");
   }
   return res.render("user_sign_in", {
     title: "Codiel | signIn",
@@ -33,8 +37,8 @@ module.exports.signIn = function (req, res) {
 
 //render the signUp page
 module.exports.signUp = function (req, res) {
-  if(req.isAuthenticated()){
-    return res.redirect('/users/profile');
+  if (req.isAuthenticated()) {
+    return res.redirect("/users/profile");
   }
 
   return res.render("user_sign_up", {
@@ -63,7 +67,7 @@ module.exports.create = function (req, res) {
         return res.redirect("/users/sign-up");
       });
     }
-    
+
     //if the email id you have used to create an user that already exist in the db then it redirect back to the page
     else {
       return res.redirect("back");
@@ -73,9 +77,9 @@ module.exports.create = function (req, res) {
 
 module.exports.createSession = function (req, res) {
   //TODO later
-  return res.redirect('/')
+  return res.redirect("/");
 };
-module.exports.destroySession = function(req,res){
+module.exports.destroySession = function (req, res) {
   req.logout();
-  return res.redirect('/');
-}
+  return res.redirect("/");
+};

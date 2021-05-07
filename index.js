@@ -49,16 +49,24 @@ app.use(session({
     cookie: {
         maxAge: (1000 * 60 * 100)
     },
-    // store: new MongoStore(
-    //     {
-    //         mongooseConnection: db,
-    //         autoRemove: 'disabled'
-        
-    //     },
-    //     function(err){
-    //         console.log(err ||  'connect-mongodb setup ok');
-    //     }
-    // )
+
+    //this was to connect the mongo store which i took help from  a student
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost/codeial_development'
+    })
+    
+}));
+app.use(session({
+    name: 'codeial',
+    secret: 'blahsomething',
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge: (1000 * 60 * 100)
+    },
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost/codeial_development'
+    })
 }));
 
 app.use(passport.initialize());
