@@ -25,7 +25,7 @@ module.exports.home = async function (req, res) {
       all_users: users,
     });
   } catch (err) {
-    console.log("Error is populating",err);
+    console.log("Error is populating", err);
     return;
   }
 };

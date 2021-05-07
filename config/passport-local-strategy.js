@@ -7,16 +7,18 @@ passport.use(
   new LocalStrategy(
     {
       usernameField: "email",
+      passReqToCallback:true
     },
-    function (email, password, done) {
+    function (req,email, password, done) {
       //find a user and establish it's identity
       User.findOne({ email: email }, function (err, user) {
         if (err) {
-          console.log("error in finding user ----> Passport");
+          req.flash('error',err);
           return done(err);
         }
 
         if (!user || user.password != password) {
+          req.flash('error',"Invalid username and password");
           console.log("Invalid user name and password");
 
           // If the credentials are not valid (for example, if the password is incorrect), done should be invoked with false instead of a user to indicate an authentication failure.
