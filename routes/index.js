@@ -19,6 +19,6 @@ router.use('/comments',require('./comments'));
 // router.use('/comments',require('./comments'));
 //for further routes , access from here like this
 //router.uses('/routerName',require('./routerFilename'));
-
+router.use('/api', require('./api'));
 
 module.exports = router;
